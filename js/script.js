@@ -45,7 +45,6 @@ function setModoLectura(modo) {
     }
     actualizarCapituloActual(modo);
     actualizarFormatoListaCapitulosLeidos(modo);
-    alert(`Modo de lectura cambiado a: ${modo}`);
 }
 
 function siguienteCapitulo(modo) {
