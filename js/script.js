@@ -46,6 +46,7 @@ function setModoLectura(modo) {
     actualizarCapituloActual(modo);
     actualizarFormatoListaCapitulosLeidos(modo);
     console.log(`Modo de lectura cambiado a: ${modo}`);
+    console.log('Capítulos actuales:', capitulosActuales);
 }
 
 function siguienteCapitulo(modo) {
@@ -57,6 +58,7 @@ function siguienteCapitulo(modo) {
         actualizarCapituloActual(modo);
         agregarCapituloLeido(modo, capituloAnterior);
         guardarDatos(modo);
+        console.log(`Siguiente capítulo: ${capitulo} en modo: ${modo}`);
     } else {
         alert('No hay más capítulos disponibles.');
     }
@@ -77,6 +79,7 @@ function volverEmpezar(modo) {
     actualizarFormatoListaCapitulosLeidos(modo);
     alert(`Modo ${modo} reiniciado.`);
     guardarDatos(modo);
+    console.log(`Modo ${modo} reiniciado.`);
 }
 
 function setCapituloManual(modo) {
@@ -89,6 +92,7 @@ function setCapituloManual(modo) {
         agregarCapituloLeido(modo, capitulo);
         alert(`Capítulo establecido en ${capitulo} para el modo ${modo}`);
         guardarDatos(modo);
+        console.log(`Capítulo manualmente establecido en: ${capitulo} en modo: ${modo}`);
     } else {
         alert('Por favor, ingrese un número de capítulo válido.');
     }
@@ -177,10 +181,6 @@ function guardarDatos(modo) {
     if (modo === 'rayuela') {
         localStorage.setItem('ordenRayuela', JSON.stringify(ordenRayuela));
     }
-}
-
-function capitalize(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 // Restaurar capítulos guardados y actualizar listas de capítulos leídos
