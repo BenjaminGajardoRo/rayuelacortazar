@@ -1,1 +1,79 @@
-<h1>holi</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rayuela</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="box">
+        <div class="container">
+            <div class="semi-circle">
+                <div class="author">JULIO CORTÁZAR</div>
+            </div>
+            <div class="hopscotch">
+                <div class="column">
+                    <div class="half-square" data-number="9"></div>
+                    <div class="half-square" data-number="8"></div>
+                    <div class="half-square" data-number="7"></div>
+                </div>
+                <div class="square title" data-number="">
+                    <span class="title-book">RAYUELA</span>
+                </div>
+                <div class="column">
+                    <div class="half-square" data-number="4"></div>
+                </div>
+                <div class="row">
+                    <div class="half-square" data-number="2"></div>
+                    <div class="half-square" data-number="3"></div>
+                </div>
+                <div class="column">
+                    <div class="half-square" data-number="1"></div>
+                </div>
+            </div>
+            <!-- Agregar el menú interactivo aquí -->
+            <div class="menu">
+                <button onclick="setModoLectura('tradicional')">Modo Tradicional</button>
+                <button onclick="setModoLectura('cortazar')">Modo Cortázar</button>
+                <button onclick="setModoLectura('rayuela')">Modo Rayuela</button>
+            </div>
+            <!-- Menús específicos para cada modo -->
+            <div id="menu-tradicional" class="menu-modo" style="display: none;">
+                <p>Capítulo actual: <span id="capitulo-tradicional">1</span></p>
+                <button onclick="siguienteCapitulo('tradicional')">Siguiente Capítulo</button>
+                <button onclick="volverEmpezar('tradicional')">Volver a Empezar</button>
+                <input type="number" id="input-tradicional" placeholder="Capítulo..." />
+                <button onclick="setCapituloManual('tradicional')">Establecer Capítulo</button>
+                <div>
+                    <h3>Capítulos Leídos:</h3>
+                    <ul id="lista-tradicional"></ul>
+                </div>
+            </div>
+            <div id="menu-cortazar" class="menu-modo" style="display: none;">
+                <p>Capítulo actual: <span id="capitulo-cortazar">73</span></p>
+                <button onclick="siguienteCapitulo('cortazar')">Siguiente Capítulo</button>
+                <button onclick="volverEmpezar('cortazar')">Volver a Empezar</button>
+                <input type="number" id="input-cortazar" placeholder="Capítulo..." />
+                <button onclick="setCapituloManual('cortazar')">Establecer Capítulo</button>
+                <div>
+                    <h3>Capítulos Leídos:</h3>
+                    <ul id="lista-cortazar"></ul>
+                </div>
+            </div>
+            <div id="menu-rayuela" class="menu-modo" style="display: none;">
+                <p>Capítulo actual: <span id="capitulo-rayuela">1</span></p>
+                <button onclick="siguienteCapitulo('rayuela')">Siguiente Capítulo</button>
+                <button onclick="volverEmpezar('rayuela')">Volver a Empezar</button>
+                <input type="number" id="input-rayuela" placeholder="Capítulo..." />
+                <button onclick="setCapituloManual('rayuela')">Establecer Capítulo</button>
+                <div>
+                    <h3>Capítulos Leídos:</h3>
+                    <ul id="lista-rayuela"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
