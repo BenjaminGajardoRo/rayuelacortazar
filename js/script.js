@@ -1,4 +1,3 @@
-// Declarar funciones primero para evitar errores de referencia
 function generarOrdenAleatorio(max) {
     const array = Array.from({ length: max }, (_, i) => i + 1);
     for (let i = array.length - 1; i > 0; i--) {
