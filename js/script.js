@@ -1,4 +1,19 @@
 let modoLectura = 'tradicional';
+const capitulosLeidos = {
+    tradicional: new Set(JSON.parse(localStorage.getItem('capitulosLeidosTradicional')) || []),
+    cortazar: new Set(JSON.parse(localStorage.getItem('capitulosLeidosCortazar')) || []),
+    rayuela: new Set(JSON.parse(localStorage.getItem('capitulosLeidosRayuela')) || [])
+};
+
+const capitulosActuales = {
+    tradicional: JSON.parse(localStorage.getItem('capituloActualTradicional')) || 1,
+    cortazar: JSON.parse(localStorage.getItem('capituloActualCortazar')) || 73,
+    rayuela: JSON.parse(localStorage.getItem('capituloActualRayuela')) || obtenerCapituloRayuelaInicial()
+};
+
+const ordenCortazar = [73, 1, 2, 116, 3, 84, 4, 71, 5, 81, 74, 6, 7, 8, 93, 68, 9, 104, 10, 65, 11, 136, 12, 106, 13, 115, 120, 16, 137, 17, 97, 18, 153, 19, 90, 20, 126, 21, 79, 22, 62, 23, 124, 128, 24, 134, 25, 141, 60, 26, 109, 27, 28, 130, 151, 152, 143, 100, 76, 101, 144, 92, 103, 108, 64, 155, 123, 145, 122, 112, 154, 85, 150, 95, 146, 29, 107, 113, 30, 57, 70, 147, 31, 32, 132, 61, 33, 67, 83, 142, 34, 87, 105, 96, 94, 91, 82, 99, 35, 121, 36, 37, 98, 38, 39, 86, 78, 40, 59, 41, 148, 42, 75, 43, 125, 44, 102, 45, 80, 46, 47, 110, 48, 111, 49, 118, 50, 119, 51, 69, 52, 89, 53, 66, 149, 54, 129, 139, 133, 140, 138, 127, 56, 135, 63, 88, 72, 77, 131, 58];
+
+let ordenRayuela = JSON.parse(localStorage.getItem('ordenRayuela')) || generarOrdenAleatorio(155);
 
 function generarOrdenAleatorio(max) {
     const array = Array.from({ length: max }, (_, i) => i + 1);
@@ -19,22 +34,6 @@ function obtenerCapituloRayuelaInicial() {
     return null;
 }
 
-const ordenCortazar = [73, 1, 2, 116, 3, 84, 4, 71, 5, 81, 74, 6, 7, 8, 93, 68, 9, 104, 10, 65, 11, 136, 12, 106, 13, 115, 120, 16, 137, 17, 97, 18, 153, 19, 90, 20, 126, 21, 79, 22, 62, 23, 124, 128, 24, 134, 25, 141, 60, 26, 109, 27, 28, 130, 151, 152, 143, 100, 76, 101, 144, 92, 103, 108, 64, 155, 123, 145, 122, 112, 154, 85, 150, 95, 146, 29, 107, 113, 30, 57, 70, 147, 31, 32, 132, 61, 33, 67, 83, 142, 34, 87, 105, 96, 94, 91, 82, 99, 35, 121, 36, 37, 98, 38, 39, 86, 78, 40, 59, 41, 148, 42, 75, 43, 125, 44, 102, 45, 80, 46, 47, 110, 48, 111, 49, 118, 50, 119, 51, 69, 52, 89, 53, 66, 149, 54, 129, 139, 133, 140, 138, 127, 56, 135, 63, 88, 72, 77, 131, 58];
-
-let ordenRayuela = JSON.parse(localStorage.getItem('ordenRayuela')) || generarOrdenAleatorio(155);
-
-const capitulosLeidos = {
-    tradicional: new Set(JSON.parse(localStorage.getItem('capitulosLeidosTradicional')) || []),
-    cortazar: new Set(JSON.parse(localStorage.getItem('capitulosLeidosCortazar')) || []),
-    rayuela: new Set(JSON.parse(localStorage.getItem('capitulosLeidosRayuela')) || [])
-};
-
-const capitulosActuales = {
-    tradicional: JSON.parse(localStorage.getItem('capituloActualTradicional')) || 1,
-    cortazar: JSON.parse(localStorage.getItem('capituloActualCortazar')) || 73,
-    rayuela: JSON.parse(localStorage.getItem('capituloActualRayuela')) || obtenerCapituloRayuelaInicial()
-};
-
 function setModoLectura(modo) {
     modoLectura = modo;
     document.querySelectorAll('.menu-modo').forEach(menu => menu.style.display = 'none');
@@ -46,8 +45,7 @@ function setModoLectura(modo) {
     }
     actualizarCapituloActual(modo);
     actualizarFormatoListaCapitulosLeidos(modo);
-    console.log(`Modo de lectura cambiado a: ${modo}`);
-    console.log('Capítulos actuales:', capitulosActuales);
+    alert(`Modo de lectura cambiado a: ${modo}`);
 }
 
 function siguienteCapitulo(modo) {
@@ -59,7 +57,6 @@ function siguienteCapitulo(modo) {
         actualizarCapituloActual(modo);
         agregarCapituloLeido(modo, capituloAnterior);
         guardarDatos(modo);
-        console.log(`Siguiente capítulo: ${capitulo} en modo: ${modo}`);
     } else {
         alert('No hay más capítulos disponibles.');
     }
@@ -74,13 +71,12 @@ function volverEmpezar(modo) {
     capitulosLeidos[modo].clear();
     capitulosActuales[modo] = modo === 'cortazar' ? 73 : (modo === 'tradicional' ? 1 : obtenerCapituloRayuelaInicial());
     if (modo === 'rayuela') {
-        ordenRayuela = generarOrdenAleatorio(155);
+        ordenRayuela = generarOrdenAleatorio(155); // Regenerar el orden aleatorio
     }
     actualizarCapituloActual(modo);
     actualizarFormatoListaCapitulosLeidos(modo);
     alert(`Modo ${modo} reiniciado.`);
     guardarDatos(modo);
-    console.log(`Modo ${modo} reiniciado.`);
 }
 
 function setCapituloManual(modo) {
@@ -93,7 +89,6 @@ function setCapituloManual(modo) {
         agregarCapituloLeido(modo, capitulo);
         alert(`Capítulo establecido en ${capitulo} para el modo ${modo}`);
         guardarDatos(modo);
-        console.log(`Capítulo manualmente establecido en: ${capitulo} en modo: ${modo}`);
     } else {
         alert('Por favor, ingrese un número de capítulo válido.');
     }
@@ -198,5 +193,4 @@ window.onload = function() {
         }
         actualizarFormatoListaCapitulosLeidos(modo);
     });
-    console.log('Capítulos restaurados:', capitulosActuales);
 }
