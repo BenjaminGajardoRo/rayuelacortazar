@@ -13,7 +13,7 @@ const capitulosActuales = {
 
 const ordenCortazar = [73, 1, 2, 116, 3, 84, 4, 71, 5, 81, 74, 6, 7, 8, 93, 68, 9, 104, 10, 65, 11, 136, 12, 106, 13, 115, 120, 16, 137, 17, 97, 18, 153, 19, 90, 20, 126, 21, 79, 22, 62, 23, 124, 128, 24, 134, 25, 141, 60, 26, 109, 27, 28, 130, 151, 152, 143, 100, 76, 101, 144, 92, 103, 108, 64, 155, 123, 145, 122, 112, 154, 85, 150, 95, 146, 29, 107, 113, 30, 57, 70, 147, 31, 32, 132, 61, 33, 67, 83, 142, 34, 87, 105, 96, 94, 91, 82, 99, 35, 121, 36, 37, 98, 38, 39, 86, 78, 40, 59, 41, 148, 42, 75, 43, 125, 44, 102, 45, 80, 46, 47, 110, 48, 111, 49, 118, 50, 119, 51, 69, 52, 89, 53, 66, 149, 54, 129, 139, 133, 140, 138, 127, 56, 135, 63, 88, 72, 77, 131, 58];
 
-let ordenRayuela = JSON.parse(localStorage.getItem('ordenRayuela')) || generarOrdenAleatorio(155);
+let ordenRayuela = JSON.parse(localStorage.getItem('ordenRayuela')) || generarOrdenAleatorio(155); 
 
 function generarOrdenAleatorio(max) {
     const array = Array.from({ length: max }, (_, i) => i + 1);
@@ -21,7 +21,7 @@ function generarOrdenAleatorio(max) {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
     }
-    localStorage.setItem('ordenRayuela', JSON.stringify(array));
+    localStorage.setItem('ordenRayuela', JSON.stringify(array)); 
     return array;
 }
 
@@ -41,10 +41,11 @@ function setModoLectura(modo) {
     if (modo === 'rayuela') {
         capitulosActuales[modo] = obtenerCapituloRayuelaInicial();
     } else if (modo === 'tradicional') {
-        capitulosActuales[modo] = 1;
+        capitulosActuales[modo] = 1; 
     }
     actualizarCapituloActual(modo);
     actualizarFormatoListaCapitulosLeidos(modo);
+    alert(`Modo de lectura cambiado a: ${modo}`);
 }
 
 function siguienteCapitulo(modo) {
@@ -161,7 +162,7 @@ function actualizarFormatoListaCapitulosLeidos(modo) {
         capitulosArray = capitulosArray.sort((a, b) => a - b);
     }
 
-    const columnas = 20;
+    const columnas = 20; 
     let contenidoHTML = '';
     for (let i = 0; i < capitulosArray.length; i += columnas) {
         const fila = capitulosArray.slice(i, i + columnas).join('-') + '-';
